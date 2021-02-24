@@ -14,4 +14,12 @@ class Trainer {
   }
 }
 
-module.exports = { Pokemon, Trainer };
+class Battle {
+  constructor(trainers) {
+    this.trainers = trainers;
+    this.turn = 0;
+    this.message = '';
+  }
+}
+
+module.exports = { Pokemon, Trainer, Battle };
