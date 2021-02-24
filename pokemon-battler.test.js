@@ -1,14 +1,18 @@
 const { Pokemon, Trainer, Battle } = require('./pokemon-battler');
 
 let bulbasaur;
+let pikachu;
+let squirtle;
+let staru;
 let ash;
+let misty;
 let testBattle;
 
 beforeEach(() => {
-  bulbasaur = new Pokemon('Bulbasaur', 50, 60, 'arrghh');
-  pikachu = new Pokemon('Pikachu', 45, 65, 'pikachuuu');
-  squirtle = new Pokemon('Squirtle', 55, 50, 'squirrtle');
-  staru = new Pokemon('Staru', 55, 50, 'zzzzzzzz');
+  bulbasaur = new Pokemon('Bulbasaur', 50, 60, 'arrghh', 'grass');
+  pikachu = new Pokemon('Pikachu', 45, 65, 'pikachuuu', 'electric');
+  squirtle = new Pokemon('Squirtle', 55, 50, 'squirrtle', 'water');
+  staru = new Pokemon('Staru', 55, 50, 'zzzzzzzz', 'water');
   ash = new Trainer('Ash', [bulbasaur, pikachu]);
   misty = new Trainer('Misty', [squirtle, staru]);
   testBattle = new Battle([ash, misty]);
@@ -26,6 +30,9 @@ describe('Pokemon class', () => {
   });
   it('return pokemon with a sound property given as argument', () => {
     expect(bulbasaur.cry).toBe('arrghh');
+  });
+  it('return pokemon with a type property given as argument', () => {
+    expect(bulbasaur.type).toBe('grass');
   });
 });
 describe('Trainer class', () => {
