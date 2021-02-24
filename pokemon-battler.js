@@ -7,4 +7,11 @@ class Pokemon {
   }
 }
 
-module.exports = { Pokemon };
+class Trainer {
+  constructor(name, storage) {
+    this.name = name;
+    this.storage = storage;
+  }
+}
+
+module.exports = { Pokemon, Trainer };
