@@ -1,12 +1,17 @@
-const { Pokemon, Trainer } = require('./pokemon-battler');
+const { Pokemon, Trainer, Battle } = require('./pokemon-battler');
 
 let bulbasaur;
 let ash;
+let testBattle;
 
 beforeEach(() => {
   bulbasaur = new Pokemon('Bulbasaur', 50, 60, 'arrghh');
   pikachu = new Pokemon('Pikachu', 45, 65, 'pikachuuu');
+  squirtle = new Pokemon('Squirtle', 55, 50, 'squirrtle');
+  staru = new Pokemon('Staru', 55, 50, 'zzzzzzzz');
   ash = new Trainer('Ash', [bulbasaur, pikachu]);
+  misty = new Trainer('Misty', [squirtle, staru]);
+  testBattle = new Battle([ash, misty]);
 });
 
 describe('Pokemon class', () => {
@@ -30,4 +35,10 @@ describe('Trainer class', () => {
   it('return trainer with a storage property given as argument', () => {
     expect(ash.storage).toEqual([bulbasaur, pikachu]);
   });
+});
+describe('Battle class', () => {
+  it('return battle class with a trainer property given as an argument', () => {
+    expect(testBattle.trainers).toEqual([ash, misty]);
+  });
+  xit('', () => {});
 });
