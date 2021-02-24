@@ -19,4 +19,8 @@ describe('Pokemon class', () => {
   it('return pokemon with a sound property given as argument', () => {
     expect(bulbasaur.cry).toBe('arrghh');
   });
+  describe('Trainer class', () => {
+    it('return trainer with a name property given as argument', () => {});
+    it('return trainer with a storage property given as argument', () => {});
+  });
 });
