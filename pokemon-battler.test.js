@@ -5,7 +5,7 @@ let ash;
 let testBattle;
 
 beforeEach(() => {
-  bulbasaur = new Pokemon('Bulbasaur', 50, 60, 'arrghh');
+  bulbasaur = new Pokemon('Bulbasaur', 50, 60, 'arrghh', 'grass');
   pikachu = new Pokemon('Pikachu', 45, 65, 'pikachuuu');
   squirtle = new Pokemon('Squirtle', 55, 50, 'squirrtle');
   staru = new Pokemon('Staru', 55, 50, 'zzzzzzzz');
@@ -26,6 +26,9 @@ describe('Pokemon class', () => {
   });
   it('return pokemon with a sound property given as argument', () => {
     expect(bulbasaur.cry).toBe('arrghh');
+  });
+  it('return pokemon with a type property given as argument', () => {
+    expect(bulbasaur.type).toBe('grass');
   });
 });
 describe('Trainer class', () => {
