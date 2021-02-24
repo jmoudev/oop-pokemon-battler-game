@@ -37,8 +37,13 @@ describe('Trainer class', () => {
   });
 });
 describe('Battle class', () => {
-  it('return battle class with a trainer property given as an argument', () => {
+  it('return battle class with a trainer property given as an argument initialised to 0', () => {
     expect(testBattle.trainers).toEqual([ash, misty]);
   });
-  xit('', () => {});
+  it('return battle class with a turn property', () => {
+    expect(testBattle.turn).toEqual(0);
+  });
+  it('return battle class with a message property initialised to an empty string', () => {
+    expect(testBattle.message).toEqual('');
+  });
 });
