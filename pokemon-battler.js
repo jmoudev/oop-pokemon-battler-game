@@ -1,3 +1,5 @@
+const { strengths, weaknesses } = require('./pokemon-types');
+
 class Pokemon {
   constructor(name, hitPoints, attackDamage, cry, type) {
     this.name = name;
