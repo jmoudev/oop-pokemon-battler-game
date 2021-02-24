@@ -1,14 +1,17 @@
-const { Pokemon } = require('./pokemon-battler');
+const { Pokemon, Trainer } = require('./pokemon-battler');
 
 let bulbasaur;
+let ash;
 
 beforeEach(() => {
-  bulbasaur = new Pokemon('bulbasaur', 50, 60, 'arrghh');
+  bulbasaur = new Pokemon('Bulbasaur', 50, 60, 'arrghh');
+  pikachu = new Pokemon('Pikachu', 45, 65, 'pikachuuu');
+  ash = new Trainer('Ash', [bulbasaur, pikachu]);
 });
 
 describe('Pokemon class', () => {
   it('return pokemon with a name property given as argument', () => {
-    expect(bulbasaur.name).toBe('bulbasaur');
+    expect(bulbasaur.name).toBe('Bulbasaur');
   });
   it('return pokemon with a hitPoints property given as argument', () => {
     expect(bulbasaur.hitPoints).toBe(50);
@@ -19,8 +22,12 @@ describe('Pokemon class', () => {
   it('return pokemon with a sound property given as argument', () => {
     expect(bulbasaur.cry).toBe('arrghh');
   });
-  describe('Trainer class', () => {
-    it('return trainer with a name property given as argument', () => {});
-    it('return trainer with a storage property given as argument', () => {});
+});
+describe('Trainer class', () => {
+  it('return trainer with a name property given as argument', () => {
+    expect(ash.name).toBe('Ash');
+  });
+  it('return trainer with a storage property given as argument', () => {
+    expect(ash.storage).toEqual([bulbasaur, pikachu]);
   });
 });
