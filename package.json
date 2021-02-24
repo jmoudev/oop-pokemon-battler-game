@@ -1,0 +1,15 @@
+{
+  "name": "oop-pokemon-battler-game",
+  "version": "1.0.0",
+  "description": "This aim of this project is to build a [Pokémon](https://en.wikipedia.org/wiki/Pok%C3%A9mon) battler game using object oriented programming and test driven development in JavaScript which can be run from the command line using node.",
+  "main": "pokemon-battler.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "jest": "^26.6.3"
+  }
+}
