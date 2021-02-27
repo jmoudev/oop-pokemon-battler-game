@@ -9,14 +9,28 @@ let misty;
 let testBattle;
 
 beforeEach(() => {
-  bulbasaur = new Pokemon('Bulbasaur', 50, 60, 'arrghh', 'grass');
-  pikachu = new Pokemon('Pikachu', 45, 65, 'pikachuuu', 'electric');
-  squirtle = new Pokemon('Squirtle', 55, 50, 'squirrtle', 'water');
-  staru = new Pokemon('Staru', 55, 50, 'zzzzzzzz', 'water');
+  bulbasaur = new Pokemon('Bulbasaur', 50, 60, 'arrghh', 'grass', [
+    'Tackle',
+    'Vine Whip'
+  ]);
+  pikachu = new Pokemon('Pikachu', 45, 65, 'pikachuuu', 'electric', [
+    'Quick Attack',
+    'Thunder Shock'
+  ]);
+  squirtle = new Pokemon('Squirtle', 55, 50, 'squirrtle', 'water', [
+    'Tackle',
+    'Water Gun'
+  ]);
+  staryu = new Pokemon('Staryu', 55, 50, 'zzzzzzzz', 'water', [
+    'Tackle',
+    'Water Gun'
+  ]);
   ash = new Trainer('Ash', [bulbasaur, pikachu]);
   misty = new Trainer('Misty', [squirtle, staru]);
   testBattle = new Battle([ash, misty]);
 });
+
+// create moves lookup, and a trainer method analyse move-set
 
 describe('Pokemon class', () => {
   it('return pokemon with a name property given as argument', () => {
@@ -33,6 +47,9 @@ describe('Pokemon class', () => {
   });
   it('return pokemon with a type property given as argument', () => {
     expect(bulbasaur.type).toBe('grass');
+  });
+  it('return pokemon with a moves property given as argument', () => {
+    expect(bulbasaur.moves).toBe(['Tackle', 'Vine Whip']);
   });
   describe('methods: ', () => {
     describe('sound()', () => {
