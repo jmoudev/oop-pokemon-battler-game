@@ -31,9 +31,7 @@ class Trainer {
   }
 
   checkMoves(pokemon) {
-    const pokemonInStorage = this.storage.map(pokemon => pokemon.name);
-    const storageIndex = pokemonInStorage.indexOf(pokemon);
-
+    const storageIndex = this.getPokemonIndexInStorage(pokemon);
     if (storageIndex === -1) return `${pokemon} is not available in storage.`;
 
     const pokemonMoves = this.storage[storageIndex].moves;
@@ -48,14 +46,30 @@ class Trainer {
     return moveInfo.join('\n');
   }
   checkHealth(pokemon) {
-    const pokemonInStorage = this.storage.map(pokemon => pokemon.name);
-    const storageIndex = pokemonInStorage.indexOf(pokemon);
-
+    const storageIndex = this.getPokemonIndexInStorage(pokemon);
     if (storageIndex === -1) return `${pokemon} is not available in storage.`;
 
     const hp = this.storage[storageIndex].hitPoints;
 
     return `${pokemon} has ${hp} hp.`;
+  }
+  checkType(pokemon) {
+    const storageIndex = this.getPokemonIndexInStorage(pokemon);
+    if (storageIndex === -1) return `${pokemon} is not available in storage.`;
+
+    const type = this.storage[storageIndex].type;
+    const strength = strengths[type];
+    const weakness = weaknesses[type];
+
+    return `${pokemon} is a ${type} type pokemon. ${
+      type.slice(0, 1).toUpperCase() + type.slice(1)
+    } is strong against ${strength}, and weak against ${weakness}.`;
+  }
+  getPokemonIndexInStorage(pokemon) {
+    const pokemonInStorage = this.storage.map(pokemon => pokemon.name);
+    const storageIndex = pokemonInStorage.indexOf(pokemon);
+
+    return storageIndex;
   }
 }
 
