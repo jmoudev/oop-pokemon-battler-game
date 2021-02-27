@@ -71,14 +71,14 @@ describe('Trainer class', () => {
   });
   describe('methods: ', () => {
     describe('checkMoves()', () => {
-      it.only('returns a string of moves including information on the damage and type for given pokemon as input argument', () => {
+      it('returns a string of moves including information on the damage and type for given pokemon as input argument', () => {
         expect(ash.checkMoves('Bulbasaur')).toBe(
           'Tackle: type: normal, damage: 40.\nVine Whip: type: grass, damage: 45.'
         );
       });
       it('returns a rejection string when pokemon not valid', () => {
         expect(ash.checkMoves('Magikarp')).toBe(
-          'Pokemon does not exist in storage.'
+          'Magikarp is not available in storage.'
         );
       });
     });
