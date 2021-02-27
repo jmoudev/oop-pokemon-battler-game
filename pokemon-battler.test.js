@@ -82,6 +82,11 @@ describe('Trainer class', () => {
         );
       });
     });
+    describe('checkHealth()', () => {
+      it('returns a string of pokemon health', () => {
+        expect(ash.checkHealth('Bulbasaur')).toBe('Bulbasaur has 50 hp.');
+      });
+    });
   });
 });
 describe('Battle class', () => {

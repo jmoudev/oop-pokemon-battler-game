@@ -47,6 +47,14 @@ class Trainer {
 
     return moveInfo.join('\n');
   }
+  checkHealth(pokemon) {
+    const pokemonInStorage = this.storage.map(pokemon => pokemon.name);
+    const storageIndex = pokemonInStorage.indexOf(pokemon);
+
+    const hp = this.storage[storageIndex].hitPoints;
+
+    return `${pokemon} has ${hp} hp.`;
+  }
 }
 
 class Battle {
