@@ -82,6 +82,16 @@ describe('Trainer class', () => {
         );
       });
     });
+    describe('checkHealth()', () => {
+      it('returns a string of pokemon health', () => {
+        expect(ash.checkHealth('Bulbasaur')).toBe('Bulbasaur has 50 hp.');
+      });
+      it('returns a rejection string when pokemon not valid', () => {
+        expect(ash.checkHealth('Magikarp')).toBe(
+          'Magikarp is not available in storage.'
+        );
+      });
+    });
   });
 });
 describe('Battle class', () => {
