@@ -69,7 +69,15 @@ describe('Trainer class', () => {
   it('return trainer with a storage property given as argument', () => {
     expect(ash.storage).toEqual([bulbasaur, pikachu]);
   });
-  describe('methods: ', () => {});
+  describe('methods: ', () => {
+    describe('checkMoves()', () => {
+      it('return the a string of moves including information on the damage and type', () => {
+        expect(checkMoves(bulbasaur)).toBe(
+          'Tackle: type: normal, damage: 40.\nVine Whip: type: grass, damage: 45.'
+        );
+      });
+    });
+  });
 });
 describe('Battle class', () => {
   it('return battle class with a trainer property given as an argument initialised to 0', () => {
