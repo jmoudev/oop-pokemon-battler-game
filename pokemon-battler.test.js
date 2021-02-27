@@ -9,14 +9,28 @@ let misty;
 let testBattle;
 
 beforeEach(() => {
-  bulbasaur = new Pokemon('Bulbasaur', 50, 60, 'arrghh', 'grass');
-  pikachu = new Pokemon('Pikachu', 45, 65, 'pikachuuu', 'electric');
-  squirtle = new Pokemon('Squirtle', 55, 50, 'squirrtle', 'water');
-  staru = new Pokemon('Staru', 55, 50, 'zzzzzzzz', 'water');
+  bulbasaur = new Pokemon('Bulbasaur', 50, 60, 'arrghh', 'grass', [
+    'Tackle',
+    'Vine Whip'
+  ]);
+  pikachu = new Pokemon('Pikachu', 45, 65, 'pikachuuu', 'electric', [
+    'Quick Attack',
+    'Thunder Shock'
+  ]);
+  squirtle = new Pokemon('Squirtle', 55, 50, 'squirrtle', 'water', [
+    'Tackle',
+    'Water Gun'
+  ]);
+  staryu = new Pokemon('Staryu', 55, 50, 'zzzzzzzz', 'water', [
+    'Tackle',
+    'Water Gun'
+  ]);
   ash = new Trainer('Ash', [bulbasaur, pikachu]);
   misty = new Trainer('Misty', [squirtle, staru]);
   testBattle = new Battle([ash, misty]);
 });
+
+// create moves lookup, and a trainer method analyse move-set
 
 describe('Pokemon class', () => {
   it('return pokemon with a name property given as argument', () => {
@@ -33,6 +47,9 @@ describe('Pokemon class', () => {
   });
   it('return pokemon with a type property given as argument', () => {
     expect(bulbasaur.type).toBe('grass');
+  });
+  it('return pokemon with a moves property given as argument', () => {
+    expect(bulbasaur.moves).toEqual(['Tackle', 'Vine Whip']);
   });
   describe('methods: ', () => {
     describe('sound()', () => {
@@ -52,7 +69,20 @@ describe('Trainer class', () => {
   it('return trainer with a storage property given as argument', () => {
     expect(ash.storage).toEqual([bulbasaur, pikachu]);
   });
-  describe('methods: ', () => {});
+  describe('methods: ', () => {
+    describe('checkMoves()', () => {
+      it('returns a string of moves including information on the damage and type for given pokemon as input argument', () => {
+        expect(ash.checkMoves('Bulbasaur')).toBe(
+          'Tackle: type: normal, damage: 40.\nVine Whip: type: grass, damage: 45.'
+        );
+      });
+      it('returns a rejection string when pokemon not valid', () => {
+        expect(ash.checkMoves('Magikarp')).toBe(
+          'Magikarp is not available in storage.'
+        );
+      });
+    });
+  });
 });
 describe('Battle class', () => {
   it('return battle class with a trainer property given as an argument initialised to 0', () => {
