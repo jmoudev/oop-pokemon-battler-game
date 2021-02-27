@@ -5,3 +5,5 @@ const moves = {
   'Thunder Shock': { type: 'electric', damage: 40 },
   'Water Gun': { type: 'water', damage: 40 }
 };
+
+module.exports = moves;
