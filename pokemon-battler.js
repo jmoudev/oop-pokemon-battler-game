@@ -1,12 +1,14 @@
 const { strengths, weaknesses } = require('./pokemon-types');
+const moves = require('./pokemon-moves');
 
 class Pokemon {
-  constructor(name, hitPoints, attackDamage, cry, type) {
+  constructor(name, hitPoints, attackDamage, cry, type, moves) {
     this.name = name;
     this.hitPoints = hitPoints;
     this.attackDamage = attackDamage;
     this.cry = cry;
     this.type = type;
+    this.moves = moves;
   }
 
   sound(n = 1) {
@@ -26,6 +28,24 @@ class Trainer {
   constructor(name, storage) {
     this.name = name;
     this.storage = storage;
+  }
+
+  checkMoves(pokemon) {
+    const pokemonInStorage = this.storage.map(pokemon => pokemon.name);
+    const storageIndex = pokemonInStorage.indexOf(pokemon);
+
+    if (storageIndex === -1) return `${pokemon} is not available in storage.`;
+
+    const pokemonMoves = this.storage[storageIndex].moves;
+    const moveInfo = [];
+
+    pokemonMoves.forEach(move => {
+      moveInfo.push(
+        `${move}: type: ${moves[move].type}, damage: ${moves[move].damage}.`
+      );
+    });
+
+    return moveInfo.join('\n');
   }
 }
 
