@@ -51,6 +51,8 @@ class Trainer {
     const pokemonInStorage = this.storage.map(pokemon => pokemon.name);
     const storageIndex = pokemonInStorage.indexOf(pokemon);
 
+    if (storageIndex === -1) return `${pokemon} is not available in storage.`;
+
     const hp = this.storage[storageIndex].hitPoints;
 
     return `${pokemon} has ${hp} hp.`;
