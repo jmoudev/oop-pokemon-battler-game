@@ -99,7 +99,9 @@ describe('Trainer class', () => {
         );
       });
       it('returns a rejection string when pokemon not valid', () => {
-        expect().toBe();
+        expect(ash.checkType('Magikarp')).toBe(
+          'Magikarp is not available in storage.'
+        );
       });
     });
   });
