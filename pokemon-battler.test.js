@@ -49,7 +49,7 @@ describe('Pokemon class', () => {
     expect(bulbasaur.type).toBe('grass');
   });
   it('return pokemon with a moves property given as argument', () => {
-    expect(bulbasaur.moves).toBe(['Tackle', 'Vine Whip']);
+    expect(bulbasaur.moves).toEqual(['Tackle', 'Vine Whip']);
   });
   describe('methods: ', () => {
     describe('sound()', () => {
