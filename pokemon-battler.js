@@ -8,6 +8,18 @@ class Pokemon {
     this.cry = cry;
     this.type = type;
   }
+
+  sound(n = 1) {
+    const criesArr = [];
+
+    for (let i = 0; i < n; i++) {
+      criesArr.push(this.cry);
+    }
+
+    const cries = criesArr.join(' ');
+
+    return `${this.name}: ${cries}...`;
+  }
 }
 
 class Trainer {
