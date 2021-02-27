@@ -34,6 +34,16 @@ describe('Pokemon class', () => {
   it('return pokemon with a type property given as argument', () => {
     expect(bulbasaur.type).toBe('grass');
   });
+  describe('methods: ', () => {
+    describe('sound()', () => {
+      it("return the pokemon's cry upon function call", () => {
+        expect(bulbasaur.sound()).toBe('Bulbasaur: arrghh...');
+      });
+      it("return pokemon's cry repeated n times as given in function argument", () => {
+        expect(bulbasaur.sound(3)).toBe('Bulbasaur: arrghh arrghh arrghh...');
+      });
+    });
+  });
 });
 describe('Trainer class', () => {
   it('return trainer with a name property given as argument', () => {
@@ -42,6 +52,7 @@ describe('Trainer class', () => {
   it('return trainer with a storage property given as argument', () => {
     expect(ash.storage).toEqual([bulbasaur, pikachu]);
   });
+  describe('methods: ', () => {});
 });
 describe('Battle class', () => {
   it('return battle class with a trainer property given as an argument initialised to 0', () => {
@@ -53,4 +64,5 @@ describe('Battle class', () => {
   it('return battle class with a message property initialised to an empty string', () => {
     expect(testBattle.message).toEqual('');
   });
+  describe('methods: ', () => {});
 });
