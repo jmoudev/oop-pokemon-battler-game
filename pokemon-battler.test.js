@@ -92,6 +92,18 @@ describe('Trainer class', () => {
         );
       });
     });
+    describe('checkType()', () => {
+      it('returns a string of pokemon type, strengths, and weaknesses', () => {
+        expect(ash.checkType('Bulbasaur')).toBe(
+          'Bulbasaur is a grass type pokemon. Grass is strong against water, and weak against fire.'
+        );
+      });
+      it('returns a rejection string when pokemon not valid', () => {
+        expect(ash.checkType('Magikarp')).toBe(
+          'Magikarp is not available in storage.'
+        );
+      });
+    });
   });
 });
 describe('Battle class', () => {
