@@ -110,10 +110,10 @@ describe('Battle class', () => {
     expect(testBattle.trainers).toEqual([ash, misty]);
   });
   it('return battle class with a pokemon property as object with values provided as arguments', () => {
-    expect(testBattle.pokemon).toEqual({
-      Ash: [bulbasaur, pikachu],
-      Misty: [squirtle, staryu]
-    });
+    expect(testBattle.pokemon).toEqual([
+      [bulbasaur, pikachu],
+      [squirtle, staryu]
+    ]);
   });
   it('return battle class with a turn property initialised to 0', () => {
     expect(testBattle.turn).toEqual(0);
@@ -121,8 +121,11 @@ describe('Battle class', () => {
   it('return battle class with a message property initialised to an empty array', () => {
     expect(testBattle.message).toEqual('');
   });
+  it("return battle class with a battlingPokemon property initialised to a zero's array", () => {
+    expect(testBattle.battlingPokemon).toEqual([0, 0]);
+  });
   describe('methods: ', () => {
-    describe.only('fight()', () => {
+    describe('fight()', () => {
       it('fight method removes hitpoints from defending pokemon of the chosen attack damage and changes message property to attack details', () => {
         testBattle.fight('Tackle');
         expect(squirtle.hitPoints).toBe(15);
@@ -153,6 +156,13 @@ describe('Battle class', () => {
           "Bulbasaur used Vine Whip. It's super effective.\nSquirtle fainted."
         );
         expect(squirtle.hitPoints).toBe(0);
+      });
+      it('fight moves on to second pokemon in party once the first has fainted', () => {
+        testBattle.fight('Vine Whip');
+        testBattle.fight('Water Gun');
+        expect(testBattle.message).toBe(
+          "Staryu used Water Gun. It's not very effective."
+        );
       });
     });
   });

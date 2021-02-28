@@ -77,6 +77,7 @@ class Battle {
     this.trainers = trainers;
     this.turn = 0;
     this.message = '';
+    this.battlingPokemon = [0, 0];
 
     const pokemon = [trainer1Pokemon, trainer2Pokemon];
 
@@ -84,8 +85,12 @@ class Battle {
   }
 
   fight(move) {
-    let attackingPokemon = this.pokemon[this.turn][0];
-    let defendingPokemon = this.pokemon[this.turn ? 0 : 1][0];
+    let attackingPokemon = this.pokemon[this.turn][
+      this.battlingPokemon[this.turn]
+    ];
+    let defendingPokemon = this.pokemon[this.turn ? 0 : 1][
+      this.battlingPokemon[this.turn ? 0 : 1]
+    ];
 
     const pokemonHasMove = attackingPokemon.moves.includes(move);
     const moveExists = !!moves[move];
@@ -115,6 +120,7 @@ class Battle {
       if (fainted) {
         message += `\n${defendingPokemon.name} fainted.`;
         defenderHitPoints = 0;
+        this.battlingPokemon[this.turn ? 0 : 1] += 1;
       }
 
       defendingPokemon.hitPoints = defenderHitPoints;
