@@ -1,5 +1,10 @@
 const types = {
-  strengths: { fire: 'grass', water: 'fire', grass: 'water' },
+  strengths: {
+    fire: 'grass',
+    water: 'fire',
+    grass: 'water',
+    electric: 'water'
+  },
   weaknesses: { fire: 'water', water: 'grass', grass: 'fire' }
 };
 
