@@ -180,5 +180,12 @@ describe('Battle class', () => {
         expect(testBattle.message).toBe('Battle over. Ash wins!');
       });
     });
+    describe('checkBattlingPokemon()', () => {
+      it('method returns a string of the currently attacking and defending pokemon', () => {
+        expect(testBattle.checkBattlingPokemon()).toBe(
+          "Ash's Bulbasaur is attacking. Misty's Squirtle is defending."
+        );
+      });
+    });
   });
 });
