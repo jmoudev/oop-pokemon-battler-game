@@ -4,7 +4,8 @@ const moves = require('./pokemon-moves');
 class Pokemon {
   constructor(name, hitPoints, cry, type, moves) {
     this.name = name;
-    this.hitPoints = hitPoints;
+    this.maxHP = hitPoints;
+    this.currentHP = hitPoints;
     this.cry = cry;
     this.type = type;
     this.moves = moves;
@@ -48,7 +49,7 @@ class Trainer {
     const storageIndex = this.getPokemonIndexInStorage(pokemon);
     if (storageIndex === -1) return `${pokemon} is not available in storage.`;
 
-    const hp = this.storage[storageIndex].hitPoints;
+    const hp = this.storage[storageIndex].currentHP;
 
     return `${pokemon} has ${hp} hp.`;
   }
@@ -69,6 +70,13 @@ class Trainer {
     const storageIndex = pokemonInStorage.indexOf(pokemon);
 
     return storageIndex;
+  }
+  healPokemon() {
+    this.storage.forEach(pokemon => {
+      pokemon.currentHP = pokemon.maxHP;
+    });
+
+    return 'All Pokémon are now healed!';
   }
 }
 
@@ -120,7 +128,7 @@ class Battle {
           message += " It's not very effective.";
         }
 
-        let defenderHitPoints = defendingPokemon.hitPoints - attackDamage;
+        let defenderHitPoints = defendingPokemon.currentHP - attackDamage;
         const fainted = defenderHitPoints <= 0;
 
         if (fainted) {
@@ -128,7 +136,7 @@ class Battle {
           defenderHitPoints = 0;
           this.battlingPokemon[this.turn ? 0 : 1] += 1;
         }
-        defendingPokemon.hitPoints = defenderHitPoints;
+        defendingPokemon.currentHP = defenderHitPoints;
 
         if (
           this.battlingPokemon[this.turn ? 0 : 1] >=
