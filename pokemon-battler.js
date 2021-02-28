@@ -2,10 +2,9 @@ const { strengths, weaknesses } = require('./pokemon-types');
 const moves = require('./pokemon-moves');
 
 class Pokemon {
-  constructor(name, hitPoints, attackDamage, cry, type, moves) {
+  constructor(name, hitPoints, cry, type, moves) {
     this.name = name;
     this.hitPoints = hitPoints;
-    this.attackDamage = attackDamage;
     this.cry = cry;
     this.type = type;
     this.moves = moves;
@@ -89,6 +88,8 @@ class Battle {
 
     this.pokemon = pokemonObj;
   }
+
+  fight() {}
 }
 
 module.exports = { Pokemon, Trainer, Battle };

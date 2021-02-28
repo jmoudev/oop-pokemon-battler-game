@@ -3,25 +3,25 @@ const { Pokemon, Trainer, Battle } = require('./pokemon-battler');
 let bulbasaur;
 let pikachu;
 let squirtle;
-let staru;
+let staryu;
 let ash;
 let misty;
 let testBattle;
 
 beforeEach(() => {
-  bulbasaur = new Pokemon('Bulbasaur', 50, 60, 'arrghh', 'grass', [
+  bulbasaur = new Pokemon('Bulbasaur', 50, 'arrghh', 'grass', [
     'Tackle',
     'Vine Whip'
   ]);
-  pikachu = new Pokemon('Pikachu', 45, 65, 'pikachuuu', 'electric', [
+  pikachu = new Pokemon('Pikachu', 45, 'pikachuuu', 'electric', [
     'Quick Attack',
     'Thunder Shock'
   ]);
-  squirtle = new Pokemon('Squirtle', 55, 50, 'squirrtle', 'water', [
+  squirtle = new Pokemon('Squirtle', 55, 'squirrtle', 'water', [
     'Tackle',
     'Water Gun'
   ]);
-  staryu = new Pokemon('Staryu', 55, 50, 'zzzzzzzz', 'water', [
+  staryu = new Pokemon('Staryu', 55, 'zzzzzzzz', 'water', [
     'Tackle',
     'Water Gun'
   ]);
@@ -34,17 +34,12 @@ beforeEach(() => {
   );
 });
 
-// create moves lookup, and a trainer method analyse move-set
-
 describe('Pokemon class', () => {
   it('return pokemon with a name property given as argument', () => {
     expect(bulbasaur.name).toBe('Bulbasaur');
   });
   it('return pokemon with a hitPoints property given as argument', () => {
     expect(bulbasaur.hitPoints).toBe(50);
-  });
-  it('return pokemon with an attackDamage property given as argument', () => {
-    expect(bulbasaur.attackDamage).toBe(60);
   });
   it('return pokemon with a sound property given as argument', () => {
     expect(bulbasaur.cry).toBe('arrghh');
@@ -128,7 +123,30 @@ describe('Battle class', () => {
   });
   describe('methods: ', () => {
     describe('fight()', () => {
-      // it('return fight message following ', () => {});
+      it.only('return fight message from first pokemon including information on the chosen attack', () => {
+        expect(testBattle.fight('Tackle')).toBe('Bulbasaur used Tackle.');
+        expect(bulbasaur.health).toBe();
+      });
+      it('return fight message from second pokemon including information on the chosen attack', () => {
+        testBattle.fight('Tackle');
+        expect(testBattle.fight('Tackle').toBe('Squirtle used Tackle.'));
+      });
+      it('return fight message including information on chosen attack and weakness of attack', () => {
+        testBattle.fight('Tackle');
+        expect(
+          testBattle
+            .fight('Water Gun')
+            .toBe("Squirtle used Water Gun. It's not very effective.")
+        );
+      });
+      it('return fight message including information on chosen attack and strength of attack', () => {
+        testBattle.fight('Tackle');
+        expect(
+          testBattle
+            .fight('Water Gun')
+            .toBe("Squirtle used Water Gun. It's not very effective.")
+        );
+      });
     });
   });
 });
