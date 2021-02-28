@@ -2,10 +2,9 @@ const { strengths, weaknesses } = require('./pokemon-types');
 const moves = require('./pokemon-moves');
 
 class Pokemon {
-  constructor(name, hitPoints, attackDamage, cry, type, moves) {
+  constructor(name, hitPoints, cry, type, moves) {
     this.name = name;
     this.hitPoints = hitPoints;
-    this.attackDamage = attackDamage;
     this.cry = cry;
     this.type = type;
     this.moves = moves;
@@ -74,10 +73,75 @@ class Trainer {
 }
 
 class Battle {
-  constructor(trainers) {
+  constructor(trainers, trainer1Pokemon, trainer2Pokemon) {
     this.trainers = trainers;
     this.turn = 0;
     this.message = '';
+    this.battlingPokemon = [0, 0];
+
+    const pokemon = [trainer1Pokemon, trainer2Pokemon];
+
+    this.pokemon = pokemon;
+  }
+
+  fight(move) {
+    let attackingPokemon = this.pokemon[this.turn][
+      this.battlingPokemon[this.turn]
+    ];
+    let defendingPokemon = this.pokemon[this.turn ? 0 : 1][
+      this.battlingPokemon[this.turn ? 0 : 1]
+    ];
+
+    if (!attackingPokemon) {
+      this.message = `Battle over. ${
+        this.trainers[this.turn ? 0 : 1].name
+      } wins!`;
+    } else {
+      const pokemonHasMove = attackingPokemon.moves.includes(move);
+      const moveExists = !!moves[move];
+
+      if (!pokemonHasMove || !moveExists) {
+        this.message = `${attackingPokemon.name} does not know move ${move}.`;
+      } else {
+        let attackDamage = moves[move].damage;
+        let message = `${attackingPokemon.name} used ${move}.`;
+
+        const moveType = moves[move].type;
+        const strength = strengths[moveType] === defendingPokemon.type;
+        const weakness = weaknesses[moveType] === defendingPokemon.type;
+
+        if (strength) {
+          attackDamage *= 1.25;
+          message += " It's super effective.";
+        }
+        if (weakness) {
+          attackDamage *= 0.75;
+          message += " It's not very effective.";
+        }
+
+        let defenderHitPoints = defendingPokemon.hitPoints - attackDamage;
+        const fainted = defenderHitPoints <= 0;
+
+        if (fainted) {
+          message += `\n${defendingPokemon.name} fainted.`;
+          defenderHitPoints = 0;
+          this.battlingPokemon[this.turn ? 0 : 1] += 1;
+        }
+        defendingPokemon.hitPoints = defenderHitPoints;
+
+        if (
+          this.battlingPokemon[this.turn ? 0 : 1] >=
+          this.pokemon[this.turn ? 0 : 1].length
+        ) {
+          message += `\n${
+            this.trainers[this.turn ? 0 : 1].name
+          } is out of usable Pokémon. ${this.trainers[this.turn].name} wins!`;
+        }
+        this.message = message;
+
+        this.turn = this.turn ? 0 : 1;
+      }
+    }
   }
 }
 
