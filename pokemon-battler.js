@@ -74,10 +74,20 @@ class Trainer {
 }
 
 class Battle {
-  constructor(trainers) {
+  constructor(trainers, trainer1Pokemon, trainer2Pokemon) {
     this.trainers = trainers;
     this.turn = 0;
     this.message = '';
+
+    const trainer1Name = trainers[0].name;
+    const trainer2Name = trainers[1].name;
+
+    const pokemonObj = {
+      [trainer1Name]: trainer1Pokemon,
+      [trainer2Name]: trainer2Pokemon
+    };
+
+    this.pokemon = pokemonObj;
   }
 }
 

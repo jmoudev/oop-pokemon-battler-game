@@ -27,7 +27,11 @@ beforeEach(() => {
   ]);
   ash = new Trainer('Ash', [bulbasaur, pikachu]);
   misty = new Trainer('Misty', [squirtle, staru]);
-  testBattle = new Battle([ash, misty]);
+  testBattle = new Battle(
+    [ash, misty],
+    [bulbasaur, pikachu],
+    [squirtle, staryu]
+  );
 });
 
 // create moves lookup, and a trainer method analyse move-set
@@ -107,14 +111,24 @@ describe('Trainer class', () => {
   });
 });
 describe('Battle class', () => {
-  it('return battle class with a trainer property given as an argument initialised to 0', () => {
+  it('return battle class with trainers property as array provided as argument ', () => {
     expect(testBattle.trainers).toEqual([ash, misty]);
   });
-  it('return battle class with a turn property', () => {
+  it('return battle class with a pokemon property as object with values provided as arguments', () => {
+    expect(testBattle.pokemon).toEqual({
+      Ash: [bulbasaur, pikachu],
+      Misty: [squirtle, staryu]
+    });
+  });
+  it('return battle class with a turn property initialised to 0', () => {
     expect(testBattle.turn).toEqual(0);
   });
   it('return battle class with a message property initialised to an empty string', () => {
     expect(testBattle.message).toEqual('');
   });
-  describe('methods: ', () => {});
+  describe('methods: ', () => {
+    describe('fight()', () => {
+      // it('return fight message following ', () => {});
+    });
+  });
 });
