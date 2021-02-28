@@ -143,6 +143,18 @@ class Battle {
       }
     }
   }
+  checkBattlingPokemon() {
+    const attackingTrainer = this.trainers[this.turn].name;
+    const defendingTrainer = this.trainers[this.turn ? 0 : 1].name;
+    const attackingPokemon = this.pokemon[this.turn][
+      this.battlingPokemon[this.turn]
+    ].name;
+    const defendingPokemon = this.pokemon[this.turn ? 0 : 1][
+      this.battlingPokemon[this.turn ? 0 : 1]
+    ].name;
+
+    return `${attackingTrainer}\'s ${attackingPokemon} is attacking. ${defendingTrainer}\'s ${defendingPokemon} is defending.`;
+  }
 }
 
 module.exports = { Pokemon, Trainer, Battle };
