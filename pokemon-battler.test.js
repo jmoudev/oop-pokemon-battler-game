@@ -124,6 +124,9 @@ describe('Battle class', () => {
   it("return battle class with a battlingPokemon property initialised to a zero's array", () => {
     expect(testBattle.battlingPokemon).toEqual([0, 0]);
   });
+  it('return battle class with a battleActive property initialised to boolean true', () => {
+    expect(testBattle.battleActive).toEqual(true);
+  });
   describe('methods: ', () => {
     describe('fight()', () => {
       it('fight method removes hitpoints from defending pokemon of the chosen attack damage and changes message property to attack details', () => {
@@ -184,6 +187,12 @@ describe('Battle class', () => {
       it('method returns a string of the currently attacking and defending pokemon', () => {
         expect(testBattle.checkBattlingPokemon()).toBe(
           "Ash's Bulbasaur is attacking. Misty's Squirtle is defending."
+        );
+      });
+      it('method returns a string stating battle over when the battleActive property is set to false', () => {
+        testBattle.battleActive = false;
+        expect(testBattle.checkBattlingPokemon()).toBe(
+          'Battle is no longer active.'
         );
       });
     });

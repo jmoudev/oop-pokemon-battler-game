@@ -82,6 +82,7 @@ class Battle {
     const pokemon = [trainer1Pokemon, trainer2Pokemon];
 
     this.pokemon = pokemon;
+    this.battleActive = true;
   }
 
   fight(move) {
@@ -144,6 +145,8 @@ class Battle {
     }
   }
   checkBattlingPokemon() {
+    if (!this.battleActive) return 'Battle is no longer active.';
+
     const attackingTrainer = this.trainers[this.turn].name;
     const defendingTrainer = this.trainers[this.turn ? 0 : 1].name;
     const attackingPokemon = this.pokemon[this.turn][
