@@ -70,6 +70,9 @@ class Trainer {
 
     return storageIndex;
   }
+  healPokemon() {
+    return 'All Pokémon are now healed!';
+  }
 }
 
 class Battle {
