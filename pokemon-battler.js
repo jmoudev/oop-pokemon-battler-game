@@ -92,41 +92,55 @@ class Battle {
       this.battlingPokemon[this.turn ? 0 : 1]
     ];
 
-    const pokemonHasMove = attackingPokemon.moves.includes(move);
-    const moveExists = !!moves[move];
-
-    if (!pokemonHasMove || !moveExists) {
-      this.message = `${attackingPokemon.name} does not know move ${move}.`;
+    if (!attackingPokemon) {
+      this.message = `Battle over. ${
+        this.trainers[this.turn ? 0 : 1].name
+      } wins!`;
     } else {
-      let attackDamage = moves[move].damage;
-      let message = `${attackingPokemon.name} used ${move}.`;
+      const pokemonHasMove = attackingPokemon.moves.includes(move);
+      const moveExists = !!moves[move];
 
-      const moveType = moves[move].type;
-      const strength = strengths[moveType] === defendingPokemon.type;
-      const weakness = weaknesses[moveType] === defendingPokemon.type;
+      if (!pokemonHasMove || !moveExists) {
+        this.message = `${attackingPokemon.name} does not know move ${move}.`;
+      } else {
+        let attackDamage = moves[move].damage;
+        let message = `${attackingPokemon.name} used ${move}.`;
 
-      if (strength) {
-        attackDamage *= 1.25;
-        message += " It's super effective.";
+        const moveType = moves[move].type;
+        const strength = strengths[moveType] === defendingPokemon.type;
+        const weakness = weaknesses[moveType] === defendingPokemon.type;
+
+        if (strength) {
+          attackDamage *= 1.25;
+          message += " It's super effective.";
+        }
+        if (weakness) {
+          attackDamage *= 0.75;
+          message += " It's not very effective.";
+        }
+
+        let defenderHitPoints = defendingPokemon.hitPoints - attackDamage;
+        const fainted = defenderHitPoints <= 0;
+
+        if (fainted) {
+          message += `\n${defendingPokemon.name} fainted.`;
+          defenderHitPoints = 0;
+          this.battlingPokemon[this.turn ? 0 : 1] += 1;
+        }
+        defendingPokemon.hitPoints = defenderHitPoints;
+
+        if (
+          this.battlingPokemon[this.turn ? 0 : 1] >=
+          this.pokemon[this.turn ? 0 : 1].length
+        ) {
+          message += `\n${
+            this.trainers[this.turn ? 0 : 1].name
+          } is out of usable Pokémon. ${this.trainers[this.turn].name} wins!`;
+        }
+        this.message = message;
+
+        this.turn = this.turn ? 0 : 1;
       }
-      if (weakness) {
-        attackDamage *= 0.75;
-        message += " It's not very effective.";
-      }
-
-      let defenderHitPoints = defendingPokemon.hitPoints - attackDamage;
-      const fainted = defenderHitPoints <= 0;
-
-      if (fainted) {
-        message += `\n${defendingPokemon.name} fainted.`;
-        defenderHitPoints = 0;
-        this.battlingPokemon[this.turn ? 0 : 1] += 1;
-      }
-
-      defendingPokemon.hitPoints = defenderHitPoints;
-      this.message = message;
-
-      this.turn = this.turn ? 0 : 1;
     }
   }
 }

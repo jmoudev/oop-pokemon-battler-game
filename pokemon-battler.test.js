@@ -157,12 +157,27 @@ describe('Battle class', () => {
         );
         expect(squirtle.hitPoints).toBe(0);
       });
-      it('fight moves on to second pokemon in party once the first has fainted', () => {
+      it('fight message moves on to second pokemon attack in party once the first has fainted', () => {
         testBattle.fight('Vine Whip');
         testBattle.fight('Water Gun');
         expect(testBattle.message).toBe(
           "Staryu used Water Gun. It's not very effective."
         );
+      });
+      it('fight message declares the winner when all pokemon in a party have fainted', () => {
+        testBattle.fight('Vine Whip');
+        testBattle.fight('Water Gun');
+        testBattle.fight('Vine Whip');
+        expect(testBattle.message).toBe(
+          "Bulbasaur used Vine Whip. It's super effective.\nStaryu fainted.\nMisty is out of usable Pokémon. Ash wins!"
+        );
+      });
+      it('fight message states warning when pokemon in party do not have health', () => {
+        testBattle.fight('Vine Whip');
+        testBattle.fight('Water Gun');
+        testBattle.fight('Vine Whip');
+        testBattle.fight('Tackle');
+        expect(testBattle.message).toBe('Battle over. Ash wins!');
       });
     });
   });
