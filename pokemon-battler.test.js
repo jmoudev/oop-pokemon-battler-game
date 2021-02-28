@@ -38,8 +38,11 @@ describe('Pokemon class', () => {
   it('return pokemon with a name property given as argument', () => {
     expect(bulbasaur.name).toBe('Bulbasaur');
   });
-  it('return pokemon with a hitPoints property given as argument', () => {
-    expect(bulbasaur.hitPoints).toBe(50);
+  it('return pokemon with a maxHP property given as argument', () => {
+    expect(bulbasaur.maxHP).toBe(50);
+  });
+  it('return pokemon with a currentHP property initialised to hitPoints argument', () => {
+    expect(bulbasaur.currentHP).toBe(50);
   });
   it('return pokemon with a sound property given as argument', () => {
     expect(bulbasaur.cry).toBe('arrghh');
@@ -107,7 +110,15 @@ describe('Trainer class', () => {
       it('method returns a string stating that pokemon have been healed', () => {
         expect(ash.healPokemon()).toBe('All Pokémon are now healed!');
       });
-      it('method resets pokemon hitPoints to full', () => {});
+      it('method resets pokemon hitPoints to full', () => {
+        testBattle.fight('Tackle');
+        testBattle.fight('Tackle');
+        testBattle.fight('Tackle');
+        testBattle.fight('Tackle');
+        misty.healPokemon();
+        expect(squirtle.currentHP).toBe(55);
+        expect(staryu.currentHP).toBe(55);
+      });
     });
   });
 });
@@ -137,7 +148,7 @@ describe('Battle class', () => {
     describe('fight()', () => {
       it('fight method removes hitpoints from defending pokemon of the chosen attack damage and changes message property to attack details', () => {
         testBattle.fight('Tackle');
-        expect(squirtle.hitPoints).toBe(15);
+        expect(squirtle.currentHP).toBe(15);
         expect(testBattle.message).toBe('Bulbasaur used Tackle.');
       });
       it('message prop on battle is changed if move does not exist on pokemon', () => {
@@ -157,14 +168,14 @@ describe('Battle class', () => {
         expect(testBattle.message).toBe(
           "Squirtle used Water Gun. It's not very effective."
         );
-        expect(bulbasaur.hitPoints).toBe(20);
+        expect(bulbasaur.currentHP).toBe(20);
       });
       it('fight message includes info on chosen attack and strength of attack and attack should deal 1.25 x damage', () => {
         testBattle.fight('Vine Whip');
         expect(testBattle.message).toBe(
           "Bulbasaur used Vine Whip. It's super effective.\nSquirtle fainted."
         );
-        expect(squirtle.hitPoints).toBe(0);
+        expect(squirtle.currentHP).toBe(0);
       });
       it('fight message moves on to second pokemon attack in party once the first has fainted', () => {
         testBattle.fight('Vine Whip');
