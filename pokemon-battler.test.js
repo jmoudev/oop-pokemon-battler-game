@@ -103,6 +103,12 @@ describe('Trainer class', () => {
         );
       });
     });
+    describe('healPokemon()', () => {
+      it('method returns a string stating that pokemon have been healed', () => {
+        expect(ash.healPokemon()).toBe('All Pokémon are now healed!');
+      });
+      it('method resets pokemon hitPoints to full', () => {});
+    });
   });
 });
 describe('Battle class', () => {
