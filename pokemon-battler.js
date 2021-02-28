@@ -78,18 +78,51 @@ class Battle {
     this.turn = 0;
     this.message = '';
 
-    const trainer1Name = trainers[0].name;
-    const trainer2Name = trainers[1].name;
+    const pokemon = [trainer1Pokemon, trainer2Pokemon];
 
-    const pokemonObj = {
-      [trainer1Name]: trainer1Pokemon,
-      [trainer2Name]: trainer2Pokemon
-    };
-
-    this.pokemon = pokemonObj;
+    this.pokemon = pokemon;
   }
 
-  fight() {}
+  fight(move) {
+    let attackingPokemon = this.pokemon[this.turn][0];
+    let defendingPokemon = this.pokemon[this.turn ? 0 : 1][0];
+
+    const pokemonHasMove = attackingPokemon.moves.includes(move);
+    const moveExists = !!moves[move];
+
+    if (!pokemonHasMove || !moveExists) {
+      this.message = `${attackingPokemon.name} does not know move ${move}.`;
+    } else {
+      let attackDamage = moves[move].damage;
+      let message = `${attackingPokemon.name} used ${move}.`;
+
+      const moveType = moves[move].type;
+      const strength = strengths[moveType] === defendingPokemon.type;
+      const weakness = weaknesses[moveType] === defendingPokemon.type;
+
+      if (strength) {
+        attackDamage *= 1.25;
+        message += " It's super effective.";
+      }
+      if (weakness) {
+        attackDamage *= 0.75;
+        message += " It's not very effective.";
+      }
+
+      let defenderHitPoints = defendingPokemon.hitPoints - attackDamage;
+      const fainted = defenderHitPoints <= 0;
+
+      if (fainted) {
+        message += `\n${defendingPokemon.name} fainted.`;
+        defenderHitPoints = 0;
+      }
+
+      defendingPokemon.hitPoints = defenderHitPoints;
+      this.message = message;
+
+      this.turn = this.turn ? 0 : 1;
+    }
+  }
 }
 
 module.exports = { Pokemon, Trainer, Battle };

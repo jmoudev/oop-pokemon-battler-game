@@ -26,7 +26,7 @@ beforeEach(() => {
     'Water Gun'
   ]);
   ash = new Trainer('Ash', [bulbasaur, pikachu]);
-  misty = new Trainer('Misty', [squirtle, staru]);
+  misty = new Trainer('Misty', [squirtle, staryu]);
   testBattle = new Battle(
     [ash, misty],
     [bulbasaur, pikachu],
@@ -118,34 +118,41 @@ describe('Battle class', () => {
   it('return battle class with a turn property initialised to 0', () => {
     expect(testBattle.turn).toEqual(0);
   });
-  it('return battle class with a message property initialised to an empty string', () => {
+  it('return battle class with a message property initialised to an empty array', () => {
     expect(testBattle.message).toEqual('');
   });
   describe('methods: ', () => {
-    describe('fight()', () => {
-      it.only('return fight message from first pokemon including information on the chosen attack', () => {
-        expect(testBattle.fight('Tackle')).toBe('Bulbasaur used Tackle.');
-        expect(bulbasaur.health).toBe();
-      });
-      it('return fight message from second pokemon including information on the chosen attack', () => {
+    describe.only('fight()', () => {
+      it('fight method removes hitpoints from defending pokemon of the chosen attack damage and changes message property to attack details', () => {
         testBattle.fight('Tackle');
-        expect(testBattle.fight('Tackle').toBe('Squirtle used Tackle.'));
+        expect(squirtle.hitPoints).toBe(15);
+        expect(testBattle.message).toBe('Bulbasaur used Tackle.');
       });
-      it('return fight message including information on chosen attack and weakness of attack', () => {
-        testBattle.fight('Tackle');
-        expect(
-          testBattle
-            .fight('Water Gun')
-            .toBe("Squirtle used Water Gun. It's not very effective.")
+      it('message prop on battle is changed if move does not exist on pokemon', () => {
+        testBattle.fight('Hyper Beam');
+        expect(testBattle.message).toBe(
+          'Bulbasaur does not know move Hyper Beam.'
         );
       });
-      it('return fight message including information on chosen attack and strength of attack', () => {
+      it('message prop on battle is changed for second pokemon attack', () => {
         testBattle.fight('Tackle');
-        expect(
-          testBattle
-            .fight('Water Gun')
-            .toBe("Squirtle used Water Gun. It's not very effective.")
+        testBattle.fight('Tackle');
+        expect(testBattle.message).toBe('Squirtle used Tackle.');
+      });
+      it('fight message includes info on chosen attack and weakness and attack should deal 0.75 x damage', () => {
+        testBattle.fight('Tackle');
+        testBattle.fight('Water Gun');
+        expect(testBattle.message).toBe(
+          "Squirtle used Water Gun. It's not very effective."
         );
+        expect(bulbasaur.hitPoints).toBe(20);
+      });
+      it('fight message includes info on chosen attack and strength of attack and attack should deal 1.25 x damage', () => {
+        testBattle.fight('Vine Whip');
+        expect(testBattle.message).toBe(
+          "Bulbasaur used Vine Whip. It's super effective.\nSquirtle fainted."
+        );
+        expect(squirtle.hitPoints).toBe(0);
       });
     });
   });
