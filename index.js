@@ -66,16 +66,16 @@ const battleMisty = async trainer => {
     if (accept_battle === 'Yes') {
       console.log('\nin battle\n');
 
-      // for loop to keep going through the battle steps until the battle ends
-      // battle ends when battle_active is false
       while (battle.battleActive) {
-        // x is battling for x
-        // choose move
-        await timeout(interval);
-
         if (!battle.turn) {
-          // logic for when attacking
-          console.log(`pokemon is battling for trainer`);
+          await timeout(interval);
+
+          const trainer = battle.trainers[0];
+          const attackingPokemon = battle.pokemon[0][battle.battlingPokemon[0]];
+
+          console.log(
+            `${attackingPokemon.name} is battling for ${trainer.name}`
+          );
 
           await timeout(interval);
 
@@ -84,17 +84,15 @@ const battleMisty = async trainer => {
               type: 'list',
               name: 'move',
               message: 'Choose battle move',
-              choices: ['Tackle']
+              choices: attackingPokemon.moves
             }
           ]);
-
-          console.log(move);
 
           battle.fight(move);
 
           await timeout(interval);
 
-          console.log('pokemon used vine whip');
+          console.log(battle.message);
         } else {
           // logic for when defending
           await timeout(interval);
@@ -107,10 +105,6 @@ const battleMisty = async trainer => {
 
           console.log('pokemon uses tackle');
         }
-
-        // battle.fight method invoked with the attacking pokemon move
-        console.log(battle.pokemon[battle.turn][battlingPokemon[battle.turn]]);
-        battle.fight('Tackle');
       }
 
       const { fight_move } = await inquirer.prompt([
