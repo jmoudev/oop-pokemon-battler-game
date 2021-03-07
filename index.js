@@ -36,3 +36,5 @@ const pokemonGame = async () => {
   await CLIStarter();
   await CLIBattle();
 };
+
+pokemonGame();
