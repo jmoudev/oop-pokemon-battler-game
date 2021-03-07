@@ -6,6 +6,8 @@ const timeout = ms => {
   return new Promise(resolve => setTimeout(resolve, ms));
 };
 
+const interval = 100;
+
 // pokemon already created need to be imported
 // trainer not yet created, however misty need to be created
 // battle needs to be created
@@ -28,7 +30,7 @@ const trainerSetup = async () => {
 
     console.log(`Hey ${first_name}....\n`);
 
-    await timeout(1000);
+    await timeout(interval);
 
     console.log(`Your starter Pokemon is ${starter_pokemon}!\n`);
 
@@ -46,11 +48,11 @@ const battleMisty = async trainer => {
       [pokemon.Squirtle, pokemon.Staryu]
     );
 
-    await timeout(1000);
+    await timeout(interval);
 
     console.log('Misty wants to battle!\n');
 
-    await timeout(1000);
+    await timeout(interval);
 
     const { accept_battle } = await inquirer.prompt([
       {
@@ -63,6 +65,53 @@ const battleMisty = async trainer => {
 
     if (accept_battle === 'Yes') {
       console.log('\nin battle\n');
+
+      // for loop to keep going through the battle steps until the battle ends
+      // battle ends when battle_active is false
+      while (battle.battleActive) {
+        // x is battling for x
+        // choose move
+        await timeout(interval);
+
+        if (!battle.turn) {
+          // logic for when attacking
+          console.log(`pokemon is battling for trainer`);
+
+          await timeout(interval);
+
+          const { move } = await inquirer.prompt([
+            {
+              type: 'list',
+              name: 'move',
+              message: 'Choose battle move',
+              choices: ['Tackle']
+            }
+          ]);
+
+          console.log(move);
+
+          battle.fight(move);
+
+          await timeout(interval);
+
+          console.log('pokemon used vine whip');
+        } else {
+          // logic for when defending
+          await timeout(interval);
+
+          console.log('Misty is attacking with pokemon...');
+
+          battle.fight('Tackle');
+
+          await timeout(interval);
+
+          console.log('pokemon uses tackle');
+        }
+
+        // battle.fight method invoked with the attacking pokemon move
+        console.log(battle.pokemon[battle.turn][battlingPokemon[battle.turn]]);
+        battle.fight('Tackle');
+      }
 
       const { fight_move } = await inquirer.prompt([
         {
@@ -84,3 +133,4 @@ const pokemonGame = async () => {
 };
 
 pokemonGame();
+// need to heal the pokemon once the battle is finished
