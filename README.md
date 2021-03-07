@@ -6,10 +6,10 @@ I decided to recently take on this project to re-cement OOP programming principl
 
 This project requires the inquirer package in node, which can be installed using npm from the root folder of the project in the terminal:
 
-npm install
+```npm install```
 
 To run the game, run the following script from the root folder:
 
-npm run pokemon
+```npm run pokemon```
 
 The game will then appear in the CLI using inquirer, and allow you to battle to your hearts content!
