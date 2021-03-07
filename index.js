@@ -1,7 +1,6 @@
 var inquirer = require('inquirer');
-const pokemon = require('./pokemon');
-const { Trainer } = require('./pokemon-battler');
-const { misty } = require('./pokemon');
+const { Trainer, Battle } = require('./pokemon-battler');
+const { pokemon, misty } = require('./pokemon');
 
 const timeout = ms => {
   return new Promise(resolve => setTimeout(resolve, ms));
@@ -33,7 +32,7 @@ const trainerSetup = async () => {
 
     console.log(`Your starter Pokemon is ${starter_pokemon}!\n`);
 
-    return new Trainer(first_name, pokemon[starter_pokemon]);
+    return new Trainer(first_name, [pokemon[starter_pokemon]]);
   } catch (err) {
     console.log(err.isTtyError);
   }
@@ -41,9 +40,11 @@ const trainerSetup = async () => {
 
 const battleMisty = async trainer => {
   try {
-    await timeout(1000);
-
-    console.log(trainer);
+    const battle = new Battle(
+      [trainer, misty],
+      [trainer.storage[0]],
+      [pokemon.Squirtle, pokemon.Staryu]
+    );
 
     await timeout(1000);
 
@@ -51,16 +52,16 @@ const battleMisty = async trainer => {
 
     await timeout(1000);
 
-    const { battle } = await inquirer.prompt([
+    const { accept_battle } = await inquirer.prompt([
       {
         type: 'list',
-        name: 'battle',
+        name: 'accept_battle',
         message: 'Do you accept?',
         choices: ['Yes', 'No']
       }
     ]);
 
-    if (battle === 'Yes') {
+    if (accept_battle === 'Yes') {
       console.log('\nin battle\n');
 
       const { fight_move } = await inquirer.prompt([
