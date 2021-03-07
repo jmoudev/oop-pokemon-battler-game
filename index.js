@@ -1,6 +1,7 @@
 var inquirer = require('inquirer');
 const pokemon = require('./pokemon');
 const { Trainer } = require('./pokemon-battler');
+const { misty } = require('./pokemon');
 
 const timeout = ms => {
   return new Promise(resolve => setTimeout(resolve, ms));
@@ -10,7 +11,7 @@ const timeout = ms => {
 // trainer not yet created, however misty need to be created
 // battle needs to be created
 
-const CLIStarter = async () => {
+const trainerSetup = async () => {
   try {
     const { first_name, starter_pokemon } = await inquirer.prompt([
       {
@@ -32,14 +33,18 @@ const CLIStarter = async () => {
 
     console.log(`Your starter Pokemon is ${starter_pokemon}!\n`);
 
-    return new Trainer(first_name, [starter_pokemon]);
+    return new Trainer(first_name, pokemon[starter_pokemon]);
   } catch (err) {
     console.log(err.isTtyError);
   }
 };
 
-const CLIBattle = async trainer => {
+const battleMisty = async trainer => {
   try {
+    await timeout(1000);
+
+    console.log(trainer);
+
     await timeout(1000);
 
     console.log('Misty wants to battle!\n');
@@ -73,8 +78,8 @@ const CLIBattle = async trainer => {
 };
 
 const pokemonGame = async () => {
-  const trainer = await CLIStarter();
-  await CLIBattle(trainer);
+  const trainer = await trainerSetup();
+  await battleMisty(trainer);
 };
 
 pokemonGame();

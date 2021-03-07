@@ -1,4 +1,4 @@
-const { Pokemon } = require('./pokemon-battler');
+const { Pokemon, Trainer } = require('./pokemon-battler');
 
 const pokemon = {
   Bulbasaur: new Pokemon('Bulbasaur', 50, 'arrghh', 'grass', [
@@ -16,7 +16,13 @@ const pokemon = {
   Pikcahu: new Pokemon('Pikachu', 45, 'pikachuuu', 'electric', [
     'Quick Attack',
     'Thunder Shock'
+  ]),
+  Staryu: new Pokemon('Staryu', 55, 'zzzzzzzz', 'water', [
+    'Tackle',
+    'Water Gun'
   ])
 };
 
-module.exports = pokemon;
+const misty = new Trainer('Misty', [pokemon.Squirtle, pokemon.Staryu]);
+
+module.exports = { pokemon, misty };
