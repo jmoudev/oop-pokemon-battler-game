@@ -199,6 +199,13 @@ describe('Battle class', () => {
         testBattle.fight('Tackle');
         expect(testBattle.message).toBe('Battle over. Ash wins!');
       });
+      it('battleActive property is set to false when battle is over', () => {
+        testBattle.fight('Vine Whip');
+        testBattle.fight('Water Gun');
+        testBattle.fight('Vine Whip');
+        testBattle.fight('Tackle');
+        expect(testBattle.battleActive).toBe(false);
+      });
     });
     describe('checkBattlingPokemon()', () => {
       it('method returns a string of the currently attacking and defending pokemon', () => {

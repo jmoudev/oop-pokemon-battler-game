@@ -147,6 +147,7 @@ class Battle {
           message += `\n${
             this.trainers[this.turn ? 0 : 1].name
           } is out of usable Pokémon. ${this.trainers[this.turn].name} wins!`;
+          this.battleActive = false;
         }
         this.message = message;
 
