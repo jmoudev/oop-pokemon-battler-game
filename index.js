@@ -43,12 +43,21 @@ const CLIBattle = async () => {
         type: 'list',
         name: 'battle',
         message: 'Do you accept?',
-        choices: ['yes', 'no']
+        choices: ['Yes', 'No']
       }
     ]);
 
     if (battle) {
       console.log('\nin battle\n');
+
+      const { fight_move } = await inquirer.prompt([
+        {
+          type: 'list',
+          name: 'fight_move',
+          message: 'Do you accept?',
+          choices: ['Tackle', 'Ember']
+        }
+      ]);
     }
   } catch (err) {
     console.log(err.isTtyError);
