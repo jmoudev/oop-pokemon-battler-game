@@ -1,9 +1,15 @@
 # Node Pokémon Battler
 
-This aim of this project is to build a [Pokémon](https://en.wikipedia.org/wiki/Pok%C3%A9mon) battler game using object oriented programming and test driven development in JavaScript which can be run from the command line using node.
+This aim of this project was to build a [Pokémon](https://en.wikipedia.org/wiki/Pok%C3%A9mon) battler game using object oriented programming and test driven development in JavaScript which can be run from the command line using node.
 
-I first tackled this project on the Northcoders Coding Bootcamp, and I thought I would revisit the project from scratch following my further 7 weeks of experience in JavaScript to re-cement OOP programming principles.
+I decided to recently take on this project to re-cement OOP programming principles, as well to learn node inquirer package.
 
-The current game includes some well known gen 1 pokémon.
+This project requires the inquirer package in node, which can be installed using npm from the root folder of the project in the terminal:
 
-Project run requirements and required tech TBC. Jest is used for testing.
+npm install
+
+To run the game, run the following script from the root folder:
+
+npm run pokemon
+
+The game will then appear in the CLI using inquirer, and allow you to battle to your hearts content!
