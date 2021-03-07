@@ -1,10 +1,10 @@
 var inquirer = require('inquirer');
 
-const CLIStarter = async () => {
-  const timeout = ms => {
-    return new Promise(resolve => setTimeout(resolve, ms));
-  };
+const timeout = ms => {
+  return new Promise(resolve => setTimeout(resolve, ms));
+};
 
+const CLIStarter = async () => {
   try {
     const { first_name, starter_pokemon } = await inquirer.prompt([
       {
@@ -20,17 +20,40 @@ const CLIStarter = async () => {
       }
     ]);
 
-    console.log(`Hey ${first_name}....`);
+    console.log(`Hey ${first_name}....\n`);
 
     await timeout(1000);
 
-    console.log(`Your starter Pokemon is ${starter_pokemon}!`);
+    console.log(`Your starter Pokemon is ${starter_pokemon}!\n`);
   } catch (err) {
     console.log(err.isTtyError);
   }
 };
 
-const CLIBattle = async () => {};
+const CLIBattle = async () => {
+  try {
+    await timeout(1000);
+
+    console.log('Misty wants to battle!\n');
+
+    await timeout(1000);
+
+    const { battle } = await inquirer.prompt([
+      {
+        type: 'list',
+        name: 'battle',
+        message: 'Do you accept?',
+        choices: ['yes', 'no']
+      }
+    ]);
+
+    if (battle) {
+      console.log('\nin battle\n');
+    }
+  } catch (err) {
+    console.log(err.isTtyError);
+  }
+};
 
 const pokemonGame = async () => {
   await CLIStarter();
