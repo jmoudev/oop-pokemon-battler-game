@@ -1,5 +1,7 @@
-const { strengths, weaknesses } = require('./pokemon-types');
-const moves = require('./pokemon-moves');
+const {
+  moves,
+  types: { strengths, weaknesses }
+} = require('./pokemon-data');
 
 class Pokemon {
   constructor(name, hitPoints, cry, type, moves) {
